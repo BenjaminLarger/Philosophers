@@ -18,8 +18,9 @@ HEADERS		= -I $(HEADER_DIR) -I ${LIBFT}
 
 ## SOURCE ##
 SRCS		:= main.c \
-	error.c \
-	input_set_state.c \
+	input_set_state.c input_create_list.c\
+	essentials_error.c essentials_clean_program.c\
+	utils_dev.c \
 
 SRC_DIR		:= src/
 BUILD_DIR	:= build/

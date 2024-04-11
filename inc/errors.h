@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:33:20 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/11 16:42:28 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/11 18:08:37 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 # define TIME_TO_SLEEP		"Set a positive time to die.\n"
 # define TIME_TO_EAT		"Set a positive time to eat.\n"
 # define MAX_TIME_TO_EAT	"Set a positive maximum time eating.\n"
+# define MALLOC_FAILURE		"Dynamic allocation malloc failed.\n"
 
 #endif

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 15:24:45 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/11 18:42:10 by blarger          ###   ########.fr       */
+/*   Created: 2024/04/11 16:44:59 by blarger           #+#    #+#             */
+/*   Updated: 2024/04/11 18:25:43 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int argc, char **argv)
+int	print_error_and_return(char *str, int to_return)
 {
-	t_setting	data;
+	ft_putstr_fd(str, 2);
+	return (to_return);
+}
 
-	if (argc != 5 && argc != 6)
-		return (print_error_and_return(ARGS, FAILURE));
-	if (set_state_info_to_struct(argc, argv, &data) == FAILURE)
-		return (-1);
-	print_list(&data);
-	free_list(&data);
+void	print_error_and_exit(char *error_message, int status)
+{
+	ft_putstr_fd(error_message, 2);
+	exit(status);
 }
