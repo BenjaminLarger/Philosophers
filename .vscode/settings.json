@@ -6,6 +6,8 @@
 		"philosophers.h": "c",
 		"errors.h": "c",
 		"pthread.h": "c",
-		"__mutex_base": "c"
+		"__mutex_base": "c",
+		"__threading_support": "c",
+		"chrono": "c"
 	}
 }

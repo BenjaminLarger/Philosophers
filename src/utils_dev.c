@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:37:11 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/12 09:30:00 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/12 17:20:36 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ void	print_list(t_setting *data)
 		printf("No maximum time to eat set\n\n");
 	while (i < data->number_of_philo)
 	{
-		printf("philo %d", i);
-		if (data->philos->is_eating == true)
-			printf(" is_eating");
+		//printf("philo %d", cur.index);
 		printf("\n");
 		data->philos = data->philos->next;
 		i++;
@@ -38,5 +36,44 @@ void	print_list(t_setting *data)
 	{
 		data->philos = data->philos->prev;
 		i--;
+	}
+}
+
+/* void	print_list2(t_philo *philos)
+{
+	int		i;
+	t_philo	*cur;
+
+	cur = philos;
+	i = 0;
+	while (i < 5)
+	{
+		printf("i = %d\n", i);
+		printf("philo %d", philos[i].index);
+		if (philos->is_eating == true)
+			printf(" is_eating");
+		printf("\n");
+		philos = philos->next;
+		i++;
+	}
+	while (i > 0)
+	{
+		philos = philos->prev;
+		i--;
+	}
+}  */
+
+void	print_array(t_setting *data)
+{
+	int	i;
+
+	printf("----------------------------------------\n");
+	i = 0;
+	while (i < data->number_of_philo)
+	{
+		printf("philo %d\t", data->philos[i].index);
+		printf("\tnext = %d", data->philos[i].next->index);
+		printf("\tprev = %d\n", data->philos[i].prev->index);
+		i++;
 	}
 }

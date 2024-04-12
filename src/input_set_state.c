@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:49:37 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/12 13:06:59 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/12 16:10:35 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ int	is_failure_or_not(t_setting *data)
 		to_return = FAILURE;
 	if (data->time_to_eat < 0)
 		to_return = FAILURE;
-	if (data->number_of_philo > 4 && data->max_time_to_eat < 0)
+	if (data->max_time_to_eat_set == true && data->max_time_to_eat < 0)
 		to_return = FAILURE;
-	if (to_return == SUCCESS)
-		create_simulation(data);
 	return (to_return);
 }
 
@@ -46,7 +44,7 @@ void	display_error_message_if_error(t_setting *data)
 		ft_putstr_fd(TIME_TO_SLEEP, 2);
 	if (data->time_to_eat < 0)
 		ft_putstr_fd(TIME_TO_EAT, 2);
-	if (data->number_of_philo > 4 && data->max_time_to_eat < 0)
+	if (data->max_time_to_eat_set == true && data->max_time_to_eat < 0)
 		ft_putstr_fd(MAX_TIME_TO_EAT, 2);
 }
 

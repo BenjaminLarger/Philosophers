@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:33:20 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/12 11:34:06 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/12 14:23:23 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 # define MAX_TIME_TO_EAT	"Set a positive maximum time eating.\n"
 # define MALLOC				"Dynamic allocation malloc failed.\n"
 # define INIT_FAILED		"Simulation initialisation failed\n"
+# define THREAD				"Failed to create thread.\n"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:32:09 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/12 09:43:17 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/12 17:10:48 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 /* INPUT */
 int		set_state_info_to_struct(int argc, char **argv, t_setting *data);
-void	create_simulation(t_setting *data);
+t_philo	*create_simulation(t_setting *data);
 
 /* SIMULATION */
 int		init_simulation(t_setting *data);
@@ -42,6 +42,8 @@ void	free_list_until_index(t_setting *data, int index);
 void	free_data_print_error_and_exit(char *error_message, int status, t_setting *data);
 
 /* DEV */
+void	print_array(t_setting *data);
 void	print_list(t_setting *data);
+
 
 #endif

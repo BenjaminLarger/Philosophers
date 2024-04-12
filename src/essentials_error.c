@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:44:59 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/12 13:07:49 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/12 16:40:49 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_error_and_exit(char *error_message, int status)
 
 void	free_data_print_error_and_exit(char *error_message, int status, t_setting *data)
 {
-	free_list(data);
+	free(data->philos);
 	ft_putstr_fd(error_message, 2);
 	exit(status);
 }
