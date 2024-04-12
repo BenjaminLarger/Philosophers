@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:49:37 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/11 19:14:33 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/12 13:06:59 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int	is_failure_or_not(t_setting *data)
 	int	to_return;
 
 	to_return = SUCCESS;
+	if (data->number_of_philo % 2 == 0)
+		data->number_of_philo_is_even = true;
+	else
+		data->number_of_philo_is_even = false;
 	if (data->number_of_philo < 1)
 		to_return = FAILURE;
 	if (data->time_to_die < 0)

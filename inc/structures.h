@@ -6,12 +6,28 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:35:56 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/11 19:11:36 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/12 13:14:53 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
+#include "philosophers.h"
+
+/**
+ * @brief A structure to represent a fork.
+ *
+ * Each fork is represented as a mutex, which can be locked and unlocked.
+ * In the context of the dining philosophers problem, a fork is a shared resource
+ * that philosophers must acquire before they can eat. Each philosopher shares a fork
+ * with the philosopher to their left and the philosopher to their right.
+ * Also we associate each philo with a fork.
+ */
+typedef struct	s_fork
+{
+	pthread_mutex_t	mutex;
+	bool			is_available;
+}				t_fork;
 
 /**
  * @brief A structure to represent a philosopher.
@@ -23,10 +39,12 @@
  */
 typedef struct s_philo
 {
+	t_fork				fork;
 	struct s_philo		*next;
 	struct s_philo		*prev;
 	bool				is_sleeping;
 	bool				is_eating;
+	bool				is_thinking;
 	bool				is_dead;
 	int					last_ate;
 	int					index;// not used yet
@@ -49,6 +67,7 @@ typedef struct	s_setting
 	int					time_to_sleep;
 	int					max_time_to_eat;
 	bool				max_time_to_eat_set;
+	bool				number_of_philo_is_even;
 	struct s_philo		*philos;
 }					t_setting;
 

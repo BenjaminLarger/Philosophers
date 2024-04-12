@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:51:05 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/11 18:56:20 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/12 13:15:13 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ t_philo	*create_philosopher(t_setting *data, int	index)
 	if (!philo)
 	{
 		free_list_until_index(data, index);
-		return (print_error_and_exit(MALLOC_FAILURE, EXIT_FAILURE), NULL);
+		return (print_error_and_exit(MALLOC, EXIT_FAILURE), NULL);
 	}
 	philo->index = index;
 	philo->next = NULL;
 	philo->prev = NULL;
+	philo->fork.is_available = true;
 	return (philo);
 }
 
@@ -35,6 +36,7 @@ void	link_philosophers(t_philo *philo, t_philo *philo_next)
 	philo->is_sleeping = false;
 	philo->is_eating = false;
 	philo->is_dead = false;
+	philo->is_thinking = false;
 }
 
 void	create_simulation(t_setting *data)

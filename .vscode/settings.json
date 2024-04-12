@@ -1,6 +1,11 @@
 {
 	"files.associations": {
 		"structures.h": "c",
-		"ios": "c"
+		"ios": "c",
+		"ratio": "c",
+		"philosophers.h": "c",
+		"errors.h": "c",
+		"pthread.h": "c",
+		"__mutex_base": "c"
 	}
 }

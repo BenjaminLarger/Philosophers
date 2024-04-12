@@ -4,7 +4,7 @@ NAME		:= philosophers
 
 
 CC			= cc
-CFLAGS		:= -Wextra -Wall -Werror \
+CFLAGS		:= -Wextra -Wall -Werror -pthread\
 	-Wunreachable-code -g -fsanitize=address,undefined \
 
 ## LIBS ##
@@ -19,6 +19,7 @@ HEADERS		= -I $(HEADER_DIR) -I ${LIBFT}
 ## SOURCE ##
 SRCS		:= main.c \
 	input_set_state.c input_create_list.c\
+	simulation_init.c \
 	essentials_error.c essentials_clean_program.c\
 	utils_dev.c \
 

@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:37:11 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/11 19:15:08 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/12 09:30:00 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	print_list(t_setting *data)
 		printf("No maximum time to eat set\n\n");
 	while (i < data->number_of_philo)
 	{
-		printf("philo %d\n", i);
+		printf("philo %d", i);
+		if (data->philos->is_eating == true)
+			printf(" is_eating");
+		printf("\n");
 		data->philos = data->philos->next;
 		i++;
 	}
