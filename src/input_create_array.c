@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:51:05 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/12 17:06:40 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/13 18:53:24 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,19 @@ t_philo	create_philosopher(t_setting *data, int index)
 {
 	t_philo	philo;
 
-	(void)data;
+	philo.meals_eaten = 0;
 	philo.index = index;
 	philo.next = NULL;
 	philo.prev = NULL;
 	philo.fork.is_available = true;
+	philo.is_dead = false;
+	philo.is_eating = false;
+	philo.is_sleeping = false;
+	philo.is_thinking = false;
+	philo.time_to_die = data->time_to_die;
+	philo.time_to_eat = data->time_to_eat;
+	philo.time_to_sleep = data->time_to_sleep;
+	philo.program_time_start = data->program_time_start;
 	return (philo);
 }
 

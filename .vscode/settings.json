@@ -8,6 +8,7 @@
 		"pthread.h": "c",
 		"__mutex_base": "c",
 		"__threading_support": "c",
-		"chrono": "c"
+		"chrono": "c",
+		"time.h": "c"
 	}
 }

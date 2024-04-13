@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:32:09 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/12 17:10:48 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/13 19:12:23 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,38 @@
 # include <unistd.h>
 # include <errno.h>
 #include <pthread.h>
+#include <sys/time.h>
 # include "libft.h"
 # include "errors.h"
 # include "structures.h"
 
 /* INPUT */
-int		set_state_info_to_struct(int argc, char **argv, t_setting *data);
-t_philo	*create_simulation(t_setting *data);
+int			set_state_info_to_struct(int argc, char **argv, t_setting *data);
+t_philo		*create_simulation(t_setting *data);
 
 /* SIMULATION */
-int		init_simulation(t_setting *data);
+int			init_simulation(t_setting *data);
+void		print_state_actualization(const char *message, int philo_index,
+				t_philo *data);
+long long	current_time_stamp_in_ms();
+bool		a_philo_is_dead(t_setting *data);
+void		make_philos_eat(t_setting *data);
+
+
 
 /* ERROR */
-int		print_error_and_return(char *str, int to_return);
-void	print_error_and_exit(char *error_message, int status);
+int			print_error_and_return(char *str, int to_return);
+void		print_error_and_exit(char *error_message, int status);
 
 /* CLEANING */
-void	free_list(t_setting *data);
-void	free_list_until_index(t_setting *data, int index);
-void	free_data_print_error_and_exit(char *error_message, int status, t_setting *data);
+void		free_list(t_setting *data);
+void		free_list_until_index(t_setting *data, int index);
+void		free_data_print_error_and_exit(char *error_message, int status,
+				t_setting *data);
 
 /* DEV */
-void	print_array(t_setting *data);
-void	print_list(t_setting *data);
+void		print_array(t_setting *data);
+void		print_list(t_setting *data);
 
 
 #endif

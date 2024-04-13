@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:35:56 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/12 13:14:53 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/13 18:53:00 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  */
 typedef struct	s_fork
 {
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	*mutex_ptr;
 	bool			is_available;
 }				t_fork;
 
@@ -42,11 +42,16 @@ typedef struct s_philo
 	t_fork				fork;
 	struct s_philo		*next;
 	struct s_philo		*prev;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	long long			program_time_start;
 	bool				is_sleeping;
 	bool				is_eating;
 	bool				is_thinking;
 	bool				is_dead;
 	int					last_ate;
+	int					meals_eaten;
 	int					index;// not used yet
 	//add a mutex ?
 }					t_philo;
@@ -68,6 +73,7 @@ typedef struct	s_setting
 	int					max_time_to_eat;
 	bool				max_time_to_eat_set;
 	bool				number_of_philo_is_even;
+	long long			program_time_start;
 	struct s_philo		*philos;
 }					t_setting;
 
