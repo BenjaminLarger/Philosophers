@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:24:45 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/13 17:57:13 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/14 18:48:05 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	main(int argc, char **argv)
 	data.philos = malloc(sizeof(t_philo) * data.number_of_philo);
 	if (!data.philos)
 		return (print_error_and_return(MALLOC, FAILURE));
-	data.philos = create_simulation(&data);
+	data.philos = create_philos_array(&data);
 	if (init_simulation(&data) == FAILURE)
 		return (free_data_print_error_and_exit(INIT_FAILED, FAILURE, &data), -1);
-	print_array(&data);
+	//print_array(&data);
 	//print_list(&data);
 	free(data.philos);
 }

@@ -9,6 +9,17 @@
 		"__mutex_base": "c",
 		"__threading_support": "c",
 		"chrono": "c",
-		"time.h": "c"
+		"time.h": "c",
+		"__bit_reference": "c",
+		"algorithm": "c",
+		"bitset": "c",
+		"unordered_map": "c",
+		"__functional_base": "c",
+		"array": "c",
+		"istream": "c",
+		"locale": "c",
+		"memory": "c",
+		"tuple": "c",
+		"utility": "c"
 	}
 }

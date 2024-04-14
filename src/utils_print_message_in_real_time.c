@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation_print_message_in_real_time.c            :+:      :+:    :+:   */
+/*   utils_print_message_in_real_time.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:20:31 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/13 18:02:37 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/14 17:21:21 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	print_state_actualization(const char *message, int philo_index, t_philo *da
 {
 	long long	time_to_print;
 
-	time_to_print = data->program_time_start - current_time_stamp_in_ms();
-	printf("timestamp_in_ms %lld\t\tphilo %d\t\t%s", time_to_print
-		, philo_index, message);
+	if (data->is_dead == true)
+		return ;
+	time_to_print = current_time_stamp_in_ms() - data->program_time_start;
+	printf("%lldms\t\tphilo %d\t\t%s", time_to_print, philo_index, message);
 }

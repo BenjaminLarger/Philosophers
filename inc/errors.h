@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:33:20 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/13 17:41:04 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/14 12:28:22 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@
 # define MAX_TIME_TO_EAT	"Set a positive maximum time eating.\n"
 # define MALLOC				"Dynamic allocation malloc failed.\n"
 # define INIT_FAILED		"Simulation initialisation failed\n"
-# define THREAD				"Failed to create thread.\n"
+# define THREAD_CREATE		"Failed to create thread.\n"
+# define THREAD_JOIN		"Failed to join thread.\n"
 
 /* STATE CHANGE */
 # define TAKES_FORK				" has taken a fork\n"
 # define EATS				" is eating\n"
-# define SLEAPS				" is sleeping\n"
+# define SLEEP				" is sleeping\n"
 # define THINKS				" is thinking\n"
 # define DIES				" died\n"
 

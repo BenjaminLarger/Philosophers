@@ -6,13 +6,13 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:51:05 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/13 18:53:24 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/14 18:39:30 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-t_philo	create_philosopher(t_setting *data, int index)
+static t_philo	create_philosopher(t_setting *data, int index)
 {
 	t_philo	philo;
 
@@ -22,33 +22,26 @@ t_philo	create_philosopher(t_setting *data, int index)
 	philo.prev = NULL;
 	philo.fork.is_available = true;
 	philo.is_dead = false;
-	philo.is_eating = false;
-	philo.is_sleeping = false;
-	philo.is_thinking = false;
-	philo.time_to_die = data->time_to_die;
-	philo.time_to_eat = data->time_to_eat;
-	philo.time_to_sleep = data->time_to_sleep;
+	philo.can_eat = false;
+	philo.can_sleep = false;
+	philo.can_think = false;
+	philo.time_to_die = data->time_to_die * 1000;
+	philo.time_to_eat = data->time_to_eat * 1000;
+	philo.time_to_sleep = data->time_to_sleep * 1000;
 	philo.program_time_start = data->program_time_start;
+	philo.last_meal = current_time_stamp_in_ms();
 	return (philo);
 }
 
-/* void	link_philosophers(t_philo *philo, t_philo *philo_next)
+t_philo	*create_philos_array(t_setting *data)
 {
-	philo->next = philo_next;
-	philo_next->prev = philo;
-	philo->is_sleeping = false;
-	philo->is_eating = false;
-	philo->is_dead = false;
-	philo->is_thinking = false;
-} */
-
-t_philo	*create_simulation(t_setting *data)
-{
-	int		i;
+	int				i;
+	pthread_mutex_t mutex_death;
 
 	data->philos = malloc(sizeof(t_philo) * (data->number_of_philo));
     if (!data->philos)
         return (NULL);
+	pthread_mutex_init(&mutex_death, NULL);
 	i = 0;
 	while (i < data->number_of_philo)
 	{

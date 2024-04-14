@@ -19,9 +19,8 @@ HEADERS		= -I $(HEADER_DIR) -I ${LIBFT}
 ## SOURCE ##
 SRCS		:= main.c \
 	input_set_state.c input_create_array.c\
-	simulation_init.c \
-	simulation_state_eating.c simulation_state_dying.c simulation_state_sleeping.c\
-	utils_print_message_in_real_time.c utils_simulation.c \
+	simulation_init.c simulation_forks_handling.c simulation_loop.c simulation_mutex_handling.c\
+	utils_print_message_in_real_time.c utils_simulation.c\
 	essentials_error.c essentials_clean_program.c\
 	utils_dev.c \
 
