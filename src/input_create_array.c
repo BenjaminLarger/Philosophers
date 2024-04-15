@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:51:05 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/14 18:39:30 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:53:15 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ static t_philo	create_philosopher(t_setting *data, int index)
 	philo.can_eat = false;
 	philo.can_sleep = false;
 	philo.can_think = false;
-	philo.time_to_die = data->time_to_die * 1000;
-	philo.time_to_eat = data->time_to_eat * 1000;
-	philo.time_to_sleep = data->time_to_sleep * 1000;
-	philo.program_time_start = data->program_time_start;
+	philo.max_meals_reach = false;
 	philo.last_meal = current_time_stamp_in_ms();
+	philo.data = data;
 	return (philo);
 }
 
@@ -38,9 +36,12 @@ t_philo	*create_philos_array(t_setting *data)
 	int				i;
 	pthread_mutex_t mutex_death;
 
+	data->philos = malloc(sizeof(t_philo) * data->number_of_philo);
+	if (!data->philos)
+		print_error_and_exit(MALLOC, EXIT_FAILURE);
 	data->philos = malloc(sizeof(t_philo) * (data->number_of_philo));
     if (!data->philos)
-        return (NULL);
+    	return (free_data_print_error_and_exit(MALLOC, 1, data), NULL);
 	pthread_mutex_init(&mutex_death, NULL);
 	i = 0;
 	while (i < data->number_of_philo)

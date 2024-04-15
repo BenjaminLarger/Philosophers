@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:37:11 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/13 17:13:42 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/15 17:50:41 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_list(t_setting *data)
 	cur = data->philos;
 	i = 0;
 	printf("---------------------------\n");
-	printf("number of philo = %d\ntime before dying = %d\ntime to eat = %d\ntime to sleep = %d\n", data->number_of_philo, data->time_to_die, data->time_to_eat, data->time_to_sleep);
+	printf("number of philo = %d\ntime before dying = %lld\ntime to eat = %d\ntime to sleep = %d\n", data->number_of_philo, data->time_before_starving, data->time_to_eat, data->time_to_sleep);
 	if (data->max_time_to_eat_set == true)
 		printf("max time to eat = %d\n\n", data->max_time_to_eat);
 	else
@@ -38,30 +38,6 @@ void	print_list(t_setting *data)
 		i--;
 	}
 }
-
-/* void	print_list2(t_philo *philos)
-{
-	int		i;
-	t_philo	*cur;
-
-	cur = philos;
-	i = 0;
-	while (i < 5)
-	{
-		printf("i = %d\n", i);
-		printf("philo %d", philos[i].index);
-		if (philos->is_eating == true)
-			printf(" is_eating");
-		printf("\n");
-		philos = philos->next;
-		i++;
-	}
-	while (i > 0)
-	{
-		philos = philos->prev;
-		i--;
-	}
-}  */
 
 void	print_array(t_setting *data)
 {

@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:33:20 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/14 12:28:22 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/15 15:20:55 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define INIT_FAILED		"Simulation initialisation failed\n"
 # define THREAD_CREATE		"Failed to create thread.\n"
 # define THREAD_JOIN		"Failed to join thread.\n"
+# define MUTEX_LOCK			"Failed to lock mutex\n"
+# define MUTEX_UNLOCK			"Failed to unlock mutex\n"
 
 /* STATE CHANGE */
 # define TAKES_FORK				" has taken a fork\n"

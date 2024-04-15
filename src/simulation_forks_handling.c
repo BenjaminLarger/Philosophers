@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:49:39 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/14 17:59:37 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/15 17:52:48 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,19 @@
 
 int	philo_grab_forks(t_philo *philo)
 {
-	 if (pthread_mutex_lock(philo->fork.mutex_fork) != 0)
-		return (FAILURE);//Handle failure
-	if (philo_must_die(philo) == true)
-		philo->is_dead = true;
-	print_state_actualization(TAKES_FORK, philo->index, philo);
-	if (pthread_mutex_lock(philo->next->fork.mutex_fork) != 0)
-		return (FAILURE);//Handle failure
-	print_state_actualization(TAKES_FORK, philo->index, philo);
+	if (philo->data->number_of_philo == 1)
+		return (FAILURE);
+	lock_mutex(philo->fork.mutex_fork);
+	print_state_actualization(TAKES_FORK, philo->index, philo, true);
+	lock_mutex(philo->next->fork.mutex_fork);
+	print_state_actualization(TAKES_FORK, philo->index, philo, true);
 	return (SUCCESS);
 }
 
 int	philo_drop_forks(t_philo *philo)
 {
-	 if (pthread_mutex_unlock(philo->fork.mutex_fork) != 0)
-		return (FAILURE);//Handle failure
-	if (pthread_mutex_unlock(philo->next->fork.mutex_fork) != 0)
-		return (FAILURE);//Handle failure
-
+	unlock_mutex(philo->fork.mutex_fork);
+	if (philo->data->number_of_philo > 1)
+		unlock_mutex(philo->next->fork.mutex_fork);
 	return (SUCCESS);
 }

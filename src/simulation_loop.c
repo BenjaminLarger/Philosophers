@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:45:51 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/14 19:01:36 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/15 17:42:53 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,38 @@ static void	*philos_routine(void *philos)
 	{
 		if (philos_copy->can_eat == true)
 		{
-			print_state_actualization(EATS, philos_copy->index, philos_copy);
+			print_state_actualization(EATS, philos_copy->index, philos_copy, true);
+			usleep(philos_copy->data->time_to_eat);
 			philos_copy->last_meal = current_time_stamp_in_ms();
-			usleep(philos_copy->time_to_eat);
+			philos_copy->meals_eaten++;
 			philo_drop_forks(philos_copy);
 			philos_copy->can_eat = false;
+			printf("%d meals eaten : %d\n", philos_copy->index, philos_copy->meals_eaten);
+			if (philos_copy->meals_eaten == philos_copy->data->max_time_to_eat)
+			{
+				printf("%d is done eating -> stop\n", philos_copy->index);
+				philos_copy->max_meals_reach = true;
+				break ;
+			}
 		}
-		else if (philos_copy->can_eat == false)
+		if (philos_copy->can_eat == false)
 		{
-			print_state_actualization(SLEEP, philos_copy->index, philos_copy);
-			usleep(philos_copy->time_to_sleep);
+			print_state_actualization(SLEEP, philos_copy->index, philos_copy, true);
+			usleep(philos_copy->data->time_to_sleep);
 			if (philo_must_die(philos_copy) == true)
-				philos_copy->is_dead = true;//we enter more than once in philo must die !!!
-			print_state_actualization(THINKS, philos_copy->index, philos_copy);
+				break ;
+			print_state_actualization(THINKS, philos_copy->index, philos_copy, true);
 			if (philo_grab_forks(philos_copy) == SUCCESS)
 				philos_copy->can_eat = true;
 		}
-		if (philos_copy->is_dead == true)
+		if (check_if_a_philo_must_exit(philos_copy) == true)
 		{
-			printf("WE MUST EXIT THE LOOP\n");
-			break ;
+			printf("return success %d\n", philos_copy->index);
+			return (SUCCESS) ;
 		}
 	}
-	return (NULL);
+	printf("\thas EXIT %d\n", philos_copy->index);
+	return (SUCCESS);
 }
 
 void	loop_simulation(t_setting *data)
@@ -71,12 +80,11 @@ void	loop_simulation(t_setting *data)
 			return (free_data_print_error_and_exit(THREAD_JOIN, EXIT_FAILURE, data));
 		i++;
 	}
-	i = 0;
+	/* i = 0;
 	while (i < data->number_of_philo)
 	{
 		if (pthread_detach(thread[i]) != 0)
 			return (free_data_print_error_and_exit(THREAD_JOIN, EXIT_FAILURE, data));
 		i++;
-	}
-	printf("WE HAVE EXITED THE LOOP\n");
+	} */
 }

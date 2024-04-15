@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:49:37 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/12 16:10:35 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/15 13:36:34 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_failure_or_not(t_setting *data)
 		data->number_of_philo_is_even = false;
 	if (data->number_of_philo < 1)
 		to_return = FAILURE;
-	if (data->time_to_die < 0)
+	if (data->time_before_starving < 0)
 		to_return = FAILURE;
 	if (data->time_to_sleep < 0)
 		to_return = FAILURE;
@@ -38,7 +38,7 @@ void	display_error_message_if_error(t_setting *data)
 {
 	if (data->number_of_philo < 1)
 		ft_putstr_fd(NUMBER_OF_PHILO, 2);
-	if (data->time_to_die < 0)
+	if (data->time_before_starving < 0)
 		ft_putstr_fd(TIME_TO_SLEEP, 2);
 	if (data->time_to_sleep < 0)
 		ft_putstr_fd(TIME_TO_SLEEP, 2);
@@ -51,9 +51,9 @@ void	display_error_message_if_error(t_setting *data)
 int	set_state_info_to_struct(int argc, char **argv, t_setting *data)
 {
 	data->number_of_philo = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]);
-	data->time_to_sleep = ft_atoi(argv[4]);
+	data->time_before_starving = (long long)ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]) * 1000;
+	data->time_to_sleep = ft_atoi(argv[4]) * 1000;
 	if (argc == 6)
 	{
 		data->max_time_to_eat_set = true;

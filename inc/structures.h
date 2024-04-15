@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:35:56 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/14 18:48:12 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:54:30 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCTURES_H
 #include "philosophers.h"
 
+typedef struct s_setting t_setting;
 /**
  * @brief A structure to represent a fork.
  *
@@ -40,13 +41,8 @@ typedef struct	s_fork
 typedef struct s_philo
 {
 	t_fork				fork;
-	pthread_mutex_t		*mutex_death;
 	struct s_philo		*next;
 	struct s_philo		*prev;
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	long long			program_time_start;
 	bool				can_sleep;
 	bool				can_eat;
 	bool				can_think;
@@ -54,10 +50,11 @@ typedef struct s_philo
 	bool				is_eating;
 	bool				is_thinking;
 	bool				is_dead;
-	int					last_meal;
+	bool				max_meals_reach;
+	long long			last_meal;
 	int					meals_eaten;
 	int					index;// not used yet
-	//add a mutex ?
+	struct	s_setting	*data;
 }					t_philo;
 
 /**
@@ -71,13 +68,14 @@ typedef struct s_philo
 typedef struct	s_setting
 {
 	int					number_of_philo;
-	int					time_to_die;
+	long long			time_before_starving;
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					max_time_to_eat;
 	bool				max_time_to_eat_set;
 	bool				number_of_philo_is_even;
 	long long			program_time_start;
+	pthread_mutex_t		mutex_death;
 	struct s_philo		*philos;
 }					t_setting;
 

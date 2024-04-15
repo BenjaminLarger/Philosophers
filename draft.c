@@ -2,48 +2,58 @@
 #include <stdio.h>
 #include <pthread.h>
 
-int mails = 0;
-pthread_mutex_t mutex;
+void	*forks_routine(void *philos)
+{
+	struct s_philo	*philos_copy;
 
-void* routine() {
-    for (int i = 0; i < 10000000; i++) {
-        pthread_mutex_lock(&mutex);
-        mails++;
-        pthread_mutex_unlock(&mutex);
-        // read mails
-        // increment
-        // write mails
-    }
+	philos_copy = (struct s_philo *)philos;
+	pthread_mutex_lock(philos_copy->fork.mutex_fork);
+	printf("fork routine for philo %d\n", philos_copy->index);
+	if (philos_copy->next->fork.is_available == true)
+		printf("\033[0;32m\tnext fork is available for philo %d\n\033[0m", philos_copy->next->index);
+	else
+		printf("\033[0;31m\tnext fork is not available for philo %d\n\033[0m", philos_copy->next->index);
+	if (philos_copy->fork.is_available == true)
+		printf("\033[0;32m\tcur fork is available for philo %d\n\033[0m", philos_copy->index);
+	else
+		printf("\033[0;31m\tcur fork is not available for philo %d\n\033[0m", philos_copy->index);
+	if (philos_copy->next->fork.is_available == true
+		&& philos_copy->fork.is_available == true)
+	{
+		printf("\033[0;32m\tTwo forks are available for the philo %d\n\033[0m", philos_copy->index);
+		philos_copy->next->fork.is_available = false;
+		philos_copy->fork.is_available = false;
+	}
+	else
+		printf("\033[0;31m\tphilo %d does not take forks\n\033[0m", philos_copy->index);
+	pthread_mutex_unlock(philos_copy->fork.mutex_fork);
+	return (NULL);
 }
 
-int main(int argc, char* argv[]) {
-    pthread_t p1, p2, p3, p4;
-    pthread_mutex_init(&mutex, NULL);
-    if (pthread_create(&p1, NULL, &routine, NULL) != 0) {
-        return 1;
-    }
-    if (pthread_create(&p2, NULL, &routine, NULL) != 0) {
-        return 2;
-    }
-    if (pthread_create(&p3, NULL, &routine, NULL) != 0) {
-        return 3;
-    }
-    if (pthread_create(&p4, NULL, &routine, NULL) != 0) {
-        return 4;
-    }
-    if (pthread_join(p1, NULL) != 0) {
-        return 5;
-    }
-    if (pthread_join(p2, NULL) != 0) {
-        return 6;
-    }
-    if (pthread_join(p3, NULL) != 0) {
-        return 7;
-    }
-    if (pthread_join(p4, NULL) != 0) {
-        return 8;
-    }
-    pthread_mutex_destroy(&mutex);
-    printf("Number of mails: %d\n", mails);
-    return 0;
+void	philo_catch_forks(t_setting	*data)
+{
+	int				i;
+	pthread_t		thread[8];
+	pthread_mutex_t mutex;
+
+	i = 0;
+	pthread_mutex_init(&mutex, NULL);
+	while (i < data->number_of_philo)
+	{
+		data->philos[i].fork.mutex_fork = &mutex;
+		if (pthread_create(&thread[i],
+				NULL, &forks_routine, &data->philos[i]))
+			return (free_data_print_error_and_exit(THREAD_CREATE, EXIT_FAILURE, data));
+		i++;
+	}
+	i = 0;
+	while (i < data->number_of_philo)
+	{
+		if (pthread_join(thread[i], NULL) != 0)
+			return (free_data_print_error_and_exit(THREAD_JOIN, EXIT_FAILURE, data));
+		i++;
+		printf("Fork thread %d has finished\n", i);
+	}
+	pthread_mutex_destroy(&mutex);
+	printf("Forks mutex done\n");
 }

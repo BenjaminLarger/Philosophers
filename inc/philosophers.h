@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:32:09 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/14 18:38:46 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:51:06 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,17 @@ int				set_state_info_to_struct(int argc, char **argv, t_setting *data);
 t_philo			*create_philos_array(t_setting *data);
 
 /* INIT */
-void	set_death_mutex(t_setting *data);
 int				init_simulation(t_setting *data);
 
 /* SIMULATION */
 void			print_state_actualization(const char *message, int philo_index,
-					t_philo *data);
+					t_philo *data, bool check_table);
 long long		current_time_stamp_in_ms();
 void			loop_simulation(t_setting *data);
 int				philo_grab_forks(t_philo *philo);
 int				philo_drop_forks(t_philo *philo);
+bool			philo_must_die(t_philo *philo);
+
 
 /* MUTEX */
 pthread_mutex_t	*initialize_mutex(t_setting *data, pthread_mutex_t *mutex);
@@ -48,7 +49,9 @@ void			destroy_mutex(t_setting *data, pthread_mutex_t *mutex);
 
 /* UTILS */
 int				philos_ready_to_state(t_setting *data, char *condition);
-bool			philo_must_die(t_philo *philo);
+bool			check_if_a_philo_must_exit(t_philo *philo);
+void			lock_mutex(pthread_mutex_t *mutex);
+void			unlock_mutex(pthread_mutex_t *mutex);
 
 /* ERROR */
 int				print_error_and_return(char *str, int to_return);

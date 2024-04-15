@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:23:04 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/14 19:00:50 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:32:41 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,16 @@ int	philos_ready_to_state(t_setting *data, char *state)
 	return (count);
 }
 
-bool	philo_must_die(t_philo *philo)
+void	lock_mutex(pthread_mutex_t *mutex)
 {
-	if (philo->last_meal - current_time_stamp_in_ms() <= 0)
-	{
-		printf("mutex %p locked\n", (void*)&philo->mutex_death);
-		if (pthread_mutex_lock(philo->mutex_death) != 0)
-			return (FAILURE);//Handle failure
-		print_state_actualization(DIES, philo->index, philo);
-		//exit(EXIT_SUCCESS);
-		return (true);
-	}
-	return (false);
+	if (pthread_mutex_lock(mutex) != 0)
+		return (print_error_and_exit(MUTEX_LOCK, EXIT_FAILURE));
+}
+
+void	unlock_mutex(pthread_mutex_t *mutex)
+{
+	if (pthread_mutex_unlock(mutex) != 0)
+		return (print_error_and_exit(MUTEX_UNLOCK, EXIT_FAILURE));
 }
 
 /* pthread_t	*alloc_thread(t_setting *data, char *condition)
