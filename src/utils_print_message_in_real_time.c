@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:20:31 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 16:51:08 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 10:04:50 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	print_state_actualization(const char *message, int philo_index, t_philo *ph
 {
 	long long	time_to_print;
 
+	printf("check if a philo is dead in print function \n");
 	if (check_table == true
 		&& check_if_a_philo_must_exit(philo) == true)//use mutex here
 		return ;

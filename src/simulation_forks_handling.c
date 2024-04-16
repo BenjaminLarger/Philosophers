@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:49:39 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 17:52:48 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 10:11:00 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	philo_grab_forks(t_philo *philo)
 {
-	if (philo->data->number_of_philo == 1)
+	if (philo->data->number_of_philo == 1
+		|| philo->max_meals_reach == true)
 		return (FAILURE);
 	lock_mutex(philo->fork.mutex_fork);
 	print_state_actualization(TAKES_FORK, philo->index, philo, true);

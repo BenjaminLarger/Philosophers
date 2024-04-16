@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:45:51 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 17:42:53 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 10:00:51 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	*philos_routine(void *philos)
 		}
 		if (check_if_a_philo_must_exit(philos_copy) == true)
 		{
-			printf("return success %d\n", philos_copy->index);
+			printf("has EXIT %d\n", philos_copy->index);
 			return (SUCCESS) ;
 		}
 	}
