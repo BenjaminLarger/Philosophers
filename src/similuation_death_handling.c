@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:51:09 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/16 10:22:00 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 16:18:31 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,61 @@
 
 bool	philo_must_die(t_philo *philo)
 {
-	//printf("mutex %p wait must die by %d\n", (void*)&philo->data->mutex_death, philo->index);
-	lock_mutex(&philo->data->mutex_death);
-	//printf("mutex %p locked must die by %d\n", (void*)&philo->data->mutex_death, philo->index);
-	if ((current_time_stamp_in_ms() - philo->last_meal) >= philo->data->time_before_starving)
+	long long	time_since_last_meal;
+	//printf("waiting to die\n");
+	//printf("done waiting to die\n");
+	lock_mutex(&philo->data->mutex_max_meals);
+	time_since_last_meal = current_time_stamp_in_ms() - philo->last_meal;
+	unlock_mutex(&philo->data->mutex_max_meals);
+	if (time_since_last_meal >= philo->data->time_before_starving)
 	{
-		print_state_actualization(DIES, philo->index, philo, false);
+		printf("time = %lld\n", time_since_last_meal);
+		lock_mutex(&philo->data->mutex_death);
+		print_state_change(DIES, philo->index, philo, true);
 		philo->is_dead = true;
+		unlock_mutex(&philo->data->mutex_death);
 	}
-	unlock_mutex(&philo->data->mutex_death);
-	//printf("mutex %p unlocked must die by %d\n", (void*)&philo->data->mutex_death, philo->index);
 	return (philo->is_dead);
 }
 
-static bool	all_philo_have_finished_max_meals(t_philo *philo)
+bool	check_if_a_philo_must_exit(t_philo *philo)//change name
 {
-	int		i;
 	bool	must_exit;
 
-	i = 0;
-	must_exit = true;
-	while (i < philo->data->number_of_philo)
-	{
-		if (philo->data->philos[i].max_meals_reach == false)
-			must_exit = false;
-		i++;
-	}
+	must_exit = false;
+	//lock_mutex(&philo->data->mutex_death);
+	//printf("waiting for exit %d\n", philo->index);
+	lock_mutex(&philo->data->mutex_exit);
+	//printf("done waiting for exit %d\n", philo->index);
+	if (philo->data->must_exit == true)
+		must_exit = true;
+	//unlock_mutex(&philo->data->mutex_death);
+	unlock_mutex(&philo->data->mutex_exit);
 	return (must_exit);
 }
 
-bool	check_if_a_philo_must_exit(t_philo *philo)
+void	constant_check_table(t_setting *data)
 {
 	int		i;
-	bool	must_exit;
+	bool	to_break;
 
-	printf("check if a philo must exit %d\n", philo->index);
-	i= 0;
-	must_exit = false;
-	//printf("mutex %p wait check death by %d\n", (void*)&philo->data->mutex_death, philo->index);
-	lock_mutex(&philo->data->mutex_death);
-	//printf("mutex %p locked check death by %d\n", (void*)&philo->data->mutex_death, philo->index);
-	while (i < philo->data->number_of_philo)
+	to_break = false;
+	while (to_break == false)
 	{
-		if (philo->data->philos[i].is_dead == true)
+		i = 0;
+		while (i < data->number_of_philo)
 		{
-			must_exit = true;
-			printf("\tSHOULD EXIT %d\n", philo->index);
+			if (philo_must_die(&data->philos[i]) == true
+				|| (all_philo_have_finished_max_meals(&data->philos[i])
+					== true))
+			{
+				lock_mutex(&data->mutex_exit);
+				to_break = true;
+				data->must_exit = true;
+				unlock_mutex(&data->mutex_exit);
+			}
+			i++;
 		}
-		i++;
 	}
-	unlock_mutex(&philo->data->mutex_death);
-	if (must_exit == false && all_philo_have_finished_max_meals(philo) == true)
-		must_exit = true;
-	printf("before unlocking mutex %d\n", philo->index);
-	printf("after unlocking mutex %d, a philo is dead = %d\n", philo->index, must_exit);
-	//printf("mutex %p unlocked check death by %d\n", (void*)&philo->data->mutex_death, philo->index);
-	return (must_exit);
+	printf("constant check done\n");
 }

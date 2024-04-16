@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:49:37 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 13:36:34 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 11:01:24 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_failure_or_not(t_setting *data)
 		to_return = FAILURE;
 	if (data->time_to_eat < 0)
 		to_return = FAILURE;
-	if (data->max_time_to_eat_set == true && data->max_time_to_eat < 0)
+	if (data->max_meals == true && data->max_meals < 0)
 		to_return = FAILURE;
 	return (to_return);
 }
@@ -44,8 +44,8 @@ void	display_error_message_if_error(t_setting *data)
 		ft_putstr_fd(TIME_TO_SLEEP, 2);
 	if (data->time_to_eat < 0)
 		ft_putstr_fd(TIME_TO_EAT, 2);
-	if (data->max_time_to_eat_set == true && data->max_time_to_eat < 0)
-		ft_putstr_fd(MAX_TIME_TO_EAT, 2);
+	if (data->max_meals_set == true && data->max_meals < 0)
+		ft_putstr_fd(MAX_MEALS, 2);
 }
 
 int	set_state_info_to_struct(int argc, char **argv, t_setting *data)
@@ -56,11 +56,11 @@ int	set_state_info_to_struct(int argc, char **argv, t_setting *data)
 	data->time_to_sleep = ft_atoi(argv[4]) * 1000;
 	if (argc == 6)
 	{
-		data->max_time_to_eat_set = true;
-		data->max_time_to_eat = ft_atoi(argv[5]);
+		data->max_meals_set = true;
+		data->max_meals = ft_atoi(argv[5]);
 	}
 	else
-		data->max_time_to_eat_set = false;
+		data->max_meals_set = false;
 	display_error_message_if_error(data);
 	return (is_failure_or_not(data));
 }

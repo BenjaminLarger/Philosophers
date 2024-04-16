@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:33:20 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 15:20:55 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 11:01:00 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define INVALID_STATE		"Input parameters are not valid.\n"
 # define TIME_TO_SLEEP		"Set a positive time to die.\n"
 # define TIME_TO_EAT		"Set a positive time to eat.\n"
-# define MAX_TIME_TO_EAT	"Set a positive maximum time eating.\n"
+# define MAX_MEALS			"Set a positive maximum time eating.\n"
 # define MALLOC				"Dynamic allocation malloc failed.\n"
 # define INIT_FAILED		"Simulation initialisation failed\n"
 # define THREAD_CREATE		"Failed to create thread.\n"

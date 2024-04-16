@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:37:11 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 17:50:41 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 14:53:55 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	print_list(t_setting *data)
 	i = 0;
 	printf("---------------------------\n");
 	printf("number of philo = %d\ntime before dying = %lld\ntime to eat = %d\ntime to sleep = %d\n", data->number_of_philo, data->time_before_starving, data->time_to_eat, data->time_to_sleep);
-	if (data->max_time_to_eat_set == true)
-		printf("max time to eat = %d\n\n", data->max_time_to_eat);
+	if (data->max_meals_set == true)
+		printf("max time to eat = %d\n\n", data->max_meals);
 	else
 		printf("No maximum time to eat set\n\n");
 	while (i < data->number_of_philo)

@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:30:38 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 17:50:50 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 14:55:42 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ pthread_mutex_t	*initialize_mutex(t_setting *data, pthread_mutex_t *mutex)
 
 	mutex = malloc(sizeof(pthread_mutex_t) * data->number_of_philo);
 	if (!mutex)
-		return (NULL); //handle malloc failure
+		return (free_data_print_error_and_exit(MALLOC, 2, data)
+			, NULL) ;
 	i = 0;
 	while (i < data->number_of_philo)
 	{

@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:23:04 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 16:32:41 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 16:02:55 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,42 @@ void	unlock_mutex(pthread_mutex_t *mutex)
 		return (print_error_and_exit(MUTEX_UNLOCK, EXIT_FAILURE));
 }
 
-/* pthread_t	*alloc_thread(t_setting *data, char *condition)
+bool	update_if_philo_has_reached_max_meals(t_philo *philo)
 {
-	int				i;
-	int				count;
-	pthread_t		*thread;
+	bool	to_return;
 
-	i = 0;
-	count = 0;
-	while (i < data->number_of_philo)
+	to_return = false;
+	lock_mutex(&philo->data->mutex_max_meals);
+	if (philo->data->max_meals_set == true
+		&& philo->meals_eaten == philo->data->max_meals)
 	{
-		if (!(ft_strcmp(condition, EATS))
-			&& data->philos[i].can_eat == true)
-			count++;
-		else if (!(ft_strcmp(condition, SLEEP))
-			&& data->philos[i].can_sleep == true)
-			count++;
-		else if (!(ft_strcmp(condition, THINKS))
-			&& data->philos[i].can_think == true)
-			count++;
-		else if (!(ft_strcmp(condition, TAKES_FORK))) //not sure of this one
-			count++;
+		philo->max_meals_reach = true;
+		to_return = true;
+	}
+	unlock_mutex(&philo->data->mutex_max_meals);
+	return (to_return);
+}
+
+bool	all_philo_have_finished_max_meals(t_philo *philo)
+{
+	int		i;
+	bool	must_exit;
+
+	if (philo->data->max_meals_set == false)
+		return false;
+	//printf("waiting max meals\n");
+	lock_mutex(&philo->data->mutex_max_meals);
+	//printf("done max meals\n");
+	i = 0;
+	must_exit = true;
+	while (i < philo->data->number_of_philo)
+	{
+		if (philo->data->philos[i].max_meals_reach == false)
+			must_exit = false;
 		i++;
 	}
-	thread = malloc(sizeof(pthread_t) * count);
-	if (!thread)
-		return (free_data_print_error_and_exit(MALLOC, EXIT_FAILURE, data), NULL);
-	printf("%d threads created\n", count);
-	return (thread);
-} */
+	unlock_mutex(&philo->data->mutex_max_meals);
+	if (must_exit == true)
+		printf("\tthey have all eaten\n");
+	return (must_exit);
+}

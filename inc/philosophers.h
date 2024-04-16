@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:32:09 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 16:51:06 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 14:48:33 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ t_philo			*create_philos_array(t_setting *data);
 int				init_simulation(t_setting *data);
 
 /* SIMULATION */
-void			print_state_actualization(const char *message, int philo_index,
+void			print_state_change(const char *message, int philo_index,
 					t_philo *data, bool check_table);
 long long		current_time_stamp_in_ms();
 void			loop_simulation(t_setting *data);
 int				philo_grab_forks(t_philo *philo);
 int				philo_drop_forks(t_philo *philo);
 bool			philo_must_die(t_philo *philo);
+void			constant_check_table(t_setting *data);
+
 
 
 /* MUTEX */
@@ -52,6 +54,12 @@ int				philos_ready_to_state(t_setting *data, char *condition);
 bool			check_if_a_philo_must_exit(t_philo *philo);
 void			lock_mutex(pthread_mutex_t *mutex);
 void			unlock_mutex(pthread_mutex_t *mutex);
+bool			update_if_philo_has_reached_max_meals(t_philo *philo);
+bool			all_philo_have_finished_max_meals(t_philo *philo);
+bool			philo_can_exit(t_philo *philo);
+
+
+
 
 /* ERROR */
 int				print_error_and_return(char *str, int to_return);

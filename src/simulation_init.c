@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 09:12:12 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 16:23:36 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 14:41:23 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,23 @@ static void	set_forks_to_philo(t_setting *data)
 	}
 }
 
-int	init_simulation(t_setting *data)
+int	init_simulation(t_setting *data)//separate the funciton with end_simulation + loop_simulation() inside main funciton
 {
 	pthread_mutex_t *forks_mutex;
-	pthread_mutex_t *death_mutex;
 
 	forks_mutex = NULL;
-	death_mutex = NULL;
+	if (data->max_meals_set == true)
+		pthread_mutex_init(&data->mutex_max_meals, NULL);
 	forks_mutex = initialize_mutex(data, forks_mutex);
-	death_mutex = initialize_mutex(data, death_mutex);
 	pthread_mutex_init(&data->mutex_death, NULL);
+	pthread_mutex_init(&data->mutex_exit, NULL);
 	set_forks_to_philo(data);
 	loop_simulation(data);
-	//check_if_philo_died();
 	destroy_mutex(data, forks_mutex);
-	destroy_mutex(data, death_mutex);
-	free(data->philos->fork.mutex_fork);
+	pthread_mutex_destroy(&data->mutex_death);
+	pthread_mutex_destroy(&data->mutex_exit);
+	if (data->max_meals_set == true)
+		pthread_mutex_destroy(&data->mutex_max_meals);
+	free(forks_mutex);
 	return (SUCCESS);
 }

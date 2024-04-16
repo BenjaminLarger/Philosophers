@@ -4,8 +4,7 @@ NAME		:= philosophers
 
 
 CC			= cc
-CFLAGS		:= -Wextra -Wall -Werror -pthread\
-	-Wunreachable-code -g -fsanitize=address,undefined \
+CFLAGS		:= -Wextra -Wall -Werror -g3 -fsanitize=thread
 
 ## LIBS ##
 LIBFT		:= ./lib/libft

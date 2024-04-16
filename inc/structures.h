@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:35:56 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 16:54:30 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/16 12:37:13 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ typedef struct s_philo
 	long long			last_meal;
 	int					meals_eaten;
 	int					index;// not used yet
+	bool				must_exit;//might delete
 	struct	s_setting	*data;
+	pthread_mutex_t		*mutex_exit;//might delete
 }					t_philo;
 
 /**
@@ -71,11 +73,14 @@ typedef struct	s_setting
 	long long			time_before_starving;
 	int					time_to_eat;
 	int					time_to_sleep;
-	int					max_time_to_eat;
-	bool				max_time_to_eat_set;
+	int					max_meals;
+	bool				max_meals_set;
 	bool				number_of_philo_is_even;
 	long long			program_time_start;
+	bool				must_exit;
 	pthread_mutex_t		mutex_death;
+	pthread_mutex_t		mutex_exit;
+	pthread_mutex_t		mutex_max_meals;
 	struct s_philo		*philos;
 }					t_setting;
 
