@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:24:45 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/15 16:37:01 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 11:50:21 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	main(int argc, char **argv)
 	data = malloc(sizeof(t_setting));
 	if (!data)
 		return (print_error_and_return(MALLOC, -1));
-	data->program_time_start = current_time_stamp_in_ms();
 	if (set_state_info_to_struct(argc, argv, data) == FAILURE)
 		return (-1);
 	data->philos = create_philos_array(data);

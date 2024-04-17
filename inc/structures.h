@@ -6,29 +6,13 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:35:56 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/16 12:37:13 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 11:42:18 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 #include "philosophers.h"
-
-typedef struct s_setting t_setting;
-/**
- * @brief A structure to represent a fork.
- *
- * Each fork is represented as a mutex, which can be locked and unlocked.
- * In the context of the dining philosophers problem, a fork is a shared resource
- * that philosophers must acquire before they can eat. Each philosopher shares a fork
- * with the philosopher to their left and the philosopher to their right.
- * Also we associate each philo with a fork.
- */
-typedef struct	s_fork
-{
-	pthread_mutex_t	*mutex_fork;
-	bool			is_available;//delete normally
-}				t_fork;
 
 /**
  * @brief A structure to represent a philosopher.
@@ -40,7 +24,6 @@ typedef struct	s_fork
  */
 typedef struct s_philo
 {
-	t_fork				fork;
 	struct s_philo		*next;
 	struct s_philo		*prev;
 	bool				can_sleep;
@@ -56,7 +39,9 @@ typedef struct s_philo
 	int					index;// not used yet
 	bool				must_exit;//might delete
 	struct	s_setting	*data;
-	pthread_mutex_t		*mutex_exit;//might delete
+	pthread_mutex_t		mutex_max_meal_reach;
+	pthread_mutex_t		mutex_fork;
+	pthread_mutex_t		mutex_last_meal;
 }					t_philo;
 
 /**
@@ -80,7 +65,6 @@ typedef struct	s_setting
 	bool				must_exit;
 	pthread_mutex_t		mutex_death;
 	pthread_mutex_t		mutex_exit;
-	pthread_mutex_t		mutex_max_meals;
 	struct s_philo		*philos;
 }					t_setting;
 

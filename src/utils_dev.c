@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:37:11 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/16 14:53:55 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 11:43:58 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	print_array(t_setting *data)
 	while (i < data->number_of_philo - 1)
 	{
 		printf("philo %d\t", data->philos[i].index);
-		if (data->philos[i].fork.is_available == false && data->philos[i + 1].fork.is_available == false)
-			printf("\nPhilo can eat\n");
 		printf("\tnext = %d", data->philos[i].next->index);
 		printf("\tprev = %d\n", data->philos[i].prev->index);
 		i++;

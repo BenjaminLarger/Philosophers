@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:23:04 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/16 16:02:55 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 11:58:26 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ bool	update_if_philo_has_reached_max_meals(t_philo *philo)
 	bool	to_return;
 
 	to_return = false;
-	lock_mutex(&philo->data->mutex_max_meals);
 	if (philo->data->max_meals_set == true
 		&& philo->meals_eaten == philo->data->max_meals)
 	{
+		lock_mutex(&philo->mutex_max_meal_reach);
 		philo->max_meals_reach = true;
+		unlock_mutex(&philo->mutex_max_meal_reach);
 		to_return = true;
 	}
-	unlock_mutex(&philo->data->mutex_max_meals);
 	return (to_return);
 }
 
@@ -72,18 +72,16 @@ bool	all_philo_have_finished_max_meals(t_philo *philo)
 
 	if (philo->data->max_meals_set == false)
 		return false;
-	//printf("waiting max meals\n");
-	lock_mutex(&philo->data->mutex_max_meals);
-	//printf("done max meals\n");
 	i = 0;
 	must_exit = true;
 	while (i < philo->data->number_of_philo)
 	{
-		if (philo->data->philos[i].max_meals_reach == false)
+		lock_mutex(&philo->mutex_max_meal_reach);
+		if (philo->max_meals_reach == false)
 			must_exit = false;
+		unlock_mutex(&philo->mutex_max_meal_reach);
 		i++;
 	}
-	unlock_mutex(&philo->data->mutex_max_meals);
 	if (must_exit == true)
 		printf("\tthey have all eaten\n");
 	return (must_exit);

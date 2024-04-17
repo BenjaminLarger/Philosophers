@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:32:09 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/16 14:48:33 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:02:33 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,19 @@ int				init_simulation(t_setting *data);
 /* SIMULATION */
 void			print_state_change(const char *message, int philo_index,
 					t_philo *data, bool check_table);
+void			print_state_change_for_routine(const char *msg, int philo_i,
+					t_philo *philo, bool check_table);
 long long		current_time_stamp_in_ms();
 void			loop_simulation(t_setting *data);
 int				philo_grab_forks(t_philo *philo);
-int				philo_drop_forks(t_philo *philo);
+void			philo_drop_forks(t_philo *philo);
 bool			philo_must_die(t_philo *philo);
-void			constant_check_table(t_setting *data);
-
-
+void			constant_check_table(t_setting *data, pthread_t *threads);
 
 /* MUTEX */
-pthread_mutex_t	*initialize_mutex(t_setting *data, pthread_mutex_t *mutex);
-void			destroy_mutex(t_setting *data, pthread_mutex_t *mutex);
+void			initialize_mutex(t_setting *data);
+void			destroy_mutex(t_setting *data);
+
 
 /* UTILS */
 int				philos_ready_to_state(t_setting *data, char *condition);
