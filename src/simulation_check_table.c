@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:27:23 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 12:04:12 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:25:43 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ void	constant_check_table(t_setting *data, pthread_t *threads)
 			if (all_philo_have_finished_max_meals(&data->philos[i]) == true)
 			{
 				to_break = true;
-				lock_mutex(&data->mutex_exit);
-				data->must_exit = true;
-				unlock_mutex(&data->mutex_exit);
 				break_simulation(data, threads);
 				break ;
 			}

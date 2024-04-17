@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:51:05 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 11:38:18 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:28:28 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_philo	create_philosopher(t_setting *data, int index)
 	philo.can_sleep = false;
 	philo.can_think = false;
 	philo.max_meals_reach = false;
-	philo.must_exit = false;
+	//philo.must_exit = false;
 	philo.last_meal = current_time_stamp_in_ms();
 	philo.data = data;
 	return (philo);

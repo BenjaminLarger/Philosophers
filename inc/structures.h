@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:35:56 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 11:42:18 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:25:44 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_philo
 	long long			last_meal;
 	int					meals_eaten;
 	int					index;// not used yet
-	bool				must_exit;//might delete
 	struct	s_setting	*data;
 	pthread_mutex_t		mutex_max_meal_reach;
 	pthread_mutex_t		mutex_fork;

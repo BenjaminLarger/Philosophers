@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:49:39 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 11:39:21 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:34:13 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 int	philo_grab_forks(t_philo *philo)
 {
+	lock_mutex(&philo->mutex_max_meal_reach);
+	if (philo->max_meals_reach == true)
+	{
+		unlock_mutex(&philo->mutex_max_meal_reach);
+		return (FAILURE);
+	}
+	unlock_mutex(&philo->mutex_max_meal_reach);
 	if (philo->data->number_of_philo == 1)
 		return (FAILURE);
 	//printf("waiting for forks\n");

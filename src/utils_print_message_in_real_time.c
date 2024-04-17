@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:20:31 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 11:54:17 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:39:27 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,10 @@ void	print_state_change(const char *msg, int philo_i,
 
 	if (check_table == true)
 	{
-		lock_mutex(&philo->data->mutex_exit);
 		if (philo->data->must_exit == true)//use mutex here
 		{
-			unlock_mutex(&philo->data->mutex_exit);
 			return ;
 		}
-		unlock_mutex(&philo->data->mutex_exit);
 	}
 	time_to_print = current_time_stamp_in_ms()
 		- philo->data->program_time_start;

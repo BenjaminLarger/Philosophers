@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:45:51 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 12:09:56 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:28:46 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ static void	*philos_routine(void *philos)
 			lock_mutex(&philos_copy->mutex_last_meal);
 			usleep(philos_copy->data->time_to_eat);
 			update_variable_state_after_eating(philos_copy);
-			if (update_if_philo_has_reached_max_meals(philos) == true)
-			{
-				return (SUCCESS);
-			}
+			update_if_philo_has_reached_max_meals(philos);
 		}
 		if (philos_copy->can_eat == false)
 		{
@@ -55,11 +52,7 @@ static void	*philos_routine(void *philos)
 			if (philo_grab_forks(philos_copy) == SUCCESS)
 				philos_copy->can_eat = true;
 		}
-		/* if (check_if_a_philo_must_exit(philos_copy) == true)//might be able to delete it
-		{
-			philo_drop_forks(philos_copy);//might cause problem if philo has no forks ?
-			return (SUCCESS);
-		} */
+		//check_if_a_philo_must_exit(philos_copy);
 	}
 	return (SUCCESS);
 }
