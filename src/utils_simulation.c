@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:23:04 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 11:58:26 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 14:08:14 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,22 @@ bool	all_philo_have_finished_max_meals(t_philo *philo)
 		i++;
 	}
 	if (must_exit == true)
+	{
+		lock_mutex(&philo->data->mutex_must_exit);
 		printf("\tthey have all eaten\n");
+		philo->data->must_exit = true;
+		unlock_mutex(&philo->data->mutex_must_exit);
+	}
 	return (must_exit);
+}
+bool	check_if_a_philo_must_exit(t_philo *philo)
+{
+	lock_mutex(&philo->data->mutex_must_exit);
+	if (philo->data->must_exit == true)//use mutex here
+	{
+		unlock_mutex(&philo->data->mutex_must_exit);
+		return (true);
+	}
+	unlock_mutex(&philo->data->mutex_must_exit);
+	return (false);
 }

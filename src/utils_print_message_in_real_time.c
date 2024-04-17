@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:20:31 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 12:39:27 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 14:01:04 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,21 @@ long long	current_time_stamp_in_ms()
  * @param mutex_id The identifier of the mutex, used for printing.
  */
 void	print_state_change(const char *msg, int philo_i,
-			t_philo *philo, bool check_table)
+			t_philo *philo, bool check_table) //return failure to quit ?
 {
 	long long	time_to_print;
 
 	if (check_table == true)
 	{
+		lock_mutex(&philo->data->mutex_must_exit);
 		if (philo->data->must_exit == true)//use mutex here
 		{
+			unlock_mutex(&philo->data->mutex_must_exit);
 			return ;
 		}
+		unlock_mutex(&philo->data->mutex_must_exit);
 	}
 	time_to_print = current_time_stamp_in_ms()
 		- philo->data->program_time_start;
 	printf("%lldms\t\tphilo %d\t\t%s", time_to_print, philo_i, msg);
 }
-/* 
-void	print_state_change_for_routine(const char *msg, int philo_i,
-			t_philo *philo, bool check_table)
-{
-	long long	time_to_print;
-
-	time_to_print = current_time_stamp_in_ms()
-		- philo->data->program_time_start;
-	printf("%lldms\t\tphilo %d\t\t%s", time_to_print, philo_i, msg);
-} */

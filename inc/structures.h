@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:35:56 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 12:25:44 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 13:19:13 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_setting
 	long long			program_time_start;
 	bool				must_exit;
 	pthread_mutex_t		mutex_death;
-	pthread_mutex_t		mutex_exit;
+	pthread_mutex_t		mutex_must_exit;
 	struct s_philo		*philos;
 }					t_setting;
 

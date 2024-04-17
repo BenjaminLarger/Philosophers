@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:45:51 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 12:28:46 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 13:57:44 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 static void	update_variable_state_after_eating(t_philo *philos_copy)
 {
 	philos_copy->last_meal = current_time_stamp_in_ms();
-	printf("%d last eat set %lld\n", philos_copy->index, philos_copy->last_meal);
 	unlock_mutex(&philos_copy->mutex_last_meal);
 	philos_copy->meals_eaten++;
-	printf("meals eaten = %d\n", philos_copy->meals_eaten);
 	philo_drop_forks(philos_copy);
 	philos_copy->can_eat = false;
 }
@@ -52,7 +50,12 @@ static void	*philos_routine(void *philos)
 			if (philo_grab_forks(philos_copy) == SUCCESS)
 				philos_copy->can_eat = true;
 		}
-		//check_if_a_philo_must_exit(philos_copy);
+		if (check_if_a_philo_must_exit(philos_copy) == true)
+		{
+			if (philos_copy->can_eat == true)
+				philo_drop_forks(philos_copy);
+			return (SUCCESS);
+		}
 	}
 	return (SUCCESS);
 }
@@ -72,16 +75,15 @@ void	loop_simulation(t_setting *data)
 					EXIT_FAILURE, data));
 		i++;
 	}
-	printf("enter in function loop\n");
 	constant_check_table(data, threads);
 	i = 0;
-	/* while (i < data->number_of_philo)
+	while (i < data->number_of_philo)
 	{
 		if (pthread_join(threads[i], NULL) != 0)
 			return (free_data_print_error_and_exit(THREAD_JOIN,
 					EXIT_FAILURE, data));
 		i++;
-	} */
+	}
 	printf("done joining philos\n");
 	free(threads);
 }
