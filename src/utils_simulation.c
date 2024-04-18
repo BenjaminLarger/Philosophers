@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:23:04 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 14:42:27 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 15:14:55 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,6 @@ void	unlock_mutex(pthread_mutex_t *mutex)
 		return (ft_putstr_fd(MUTEX_UNLOCK, 2));
 }
 
-bool	update_if_philo_has_reached_max_meals(t_philo *philo)
-{
-	bool	to_return;
-
-	to_return = false;
-	if (philo->data->max_meals_set == true
-		&& philo->meals_eaten == philo->data->max_meals)
-	{
-		lock_mutex(&philo->mutex_max_meal_reach);
-		philo->max_meals_reach = true;
-		unlock_mutex(&philo->mutex_max_meal_reach);
-		to_return = true;
-	}
-	return (to_return);
-}
-
 void	break_simulation(t_setting *data, pthread_t *threads)
 {
 	int	i;
@@ -50,4 +34,17 @@ void	break_simulation(t_setting *data, pthread_t *threads)
 		pthread_detach(threads[i]);
 		i++;
 	}
+}
+
+int	print_error_and_return(char *str, int to_return)
+{
+	ft_putstr_fd(str, 2);
+	return (to_return);
+}
+
+int	free_print_error(char *str, int to_return, t_setting *data)
+{
+	free(data);
+	ft_putstr_fd(str, 2);
+	return (to_return);
 }
