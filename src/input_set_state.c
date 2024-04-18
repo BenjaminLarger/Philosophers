@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:49:37 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/16 11:01:24 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 17:46:43 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	set_state_info_to_struct(int argc, char **argv, t_setting *data)
 {
 	data->number_of_philo = ft_atoi(argv[1]);
 	data->time_before_starving = (long long)ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]) * 1000;
-	data->time_to_sleep = ft_atoi(argv[4]) * 1000;
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 	{
 		data->max_meals_set = true;

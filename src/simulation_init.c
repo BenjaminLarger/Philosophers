@@ -6,32 +6,13 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 09:12:12 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 13:57:53 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 11:17:43 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	set_forks_to_philo(t_setting *data)
-{
-	int	i;
 
-	i = 0;
-	if (data->number_of_philo == 1)
-		return ;
-	while (i < data->number_of_philo
-		&& data->philos[i].next->index != 0)
-	{
-		if (data->philos[i].index % 2 == 0)
-		{
-			philo_grab_forks(&data->philos[i]);
-			data->philos[i].can_eat = true;
-		}
-		else
-			data->philos[i].can_sleep = true;
-		i++;
-	}
-}
 
 int	init_simulation(t_setting *data)//separate the funciton with end_simulation + loop_simulation() inside main funciton
 {
@@ -39,6 +20,8 @@ int	init_simulation(t_setting *data)//separate the funciton with end_simulation 
 	pthread_mutex_t *last_meal_mutex;
 	pthread_mutex_t *max_meal_reach;
 
+	data->time_to_think = (data->time_to_eat * 2) - data->time_to_sleep;
+	printf("time to sleep = %d\n", data->time_to_sleep);
 	forks_mutex = NULL;
 	last_meal_mutex = NULL;
 	max_meal_reach = NULL;
@@ -47,15 +30,18 @@ int	init_simulation(t_setting *data)//separate the funciton with end_simulation 
 		pthread_mutex_init(&data->mutex_max_meals, NULL); */
 	initialize_mutex(data);
 	pthread_mutex_init(&data->mutex_death, NULL);
-	pthread_mutex_init(&data->mutex_must_exit, NULL);
-	set_forks_to_philo(data);
+	//pthread_mutex_init(&data->mutex_must_exit, NULL);
+	pthread_mutex_init(&data->mutex_grab_forks, NULL);
+	pthread_mutex_init(&data->can_write, NULL);
 	data->program_time_start = current_time_stamp_in_ms();
-	loop_simulation(data);
-	destroy_mutex(data);
-	destroy_mutex(data);
+	//set_forks_to_philo(data);
+	if (loop_simulation(data) == FAILURE)
+		return (FAILURE);
 	destroy_mutex(data);
 	pthread_mutex_destroy(&data->mutex_death);
-	pthread_mutex_destroy(&data->mutex_must_exit);
+	//pthread_mutex_destroy(&data->mutex_must_exit);
+	pthread_mutex_destroy(&data->mutex_grab_forks);
+	pthread_mutex_destroy(&data->can_write);
 	/* if (data->max_meals_set == true)
 		pthread_mutex_destroy(&data->mutex_max_meals); */
 	free(forks_mutex);

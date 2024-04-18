@@ -1,0 +1,111 @@
+1) 
+doese not eat
+
+here we must say if it is the odd turn to eat
+
+blarger@c3r5s4 Philosophers % ./philosophers 5 800 200 200 5
+1713355990809ms         philo 0          has taken a fork
+1713355990809ms         philo 0          has taken a fork
+1713355990809ms         philo 2          has taken a fork
+1713355990809ms         philo 2          has taken a fork
+1ms             philo 0          is eating
+1ms             philo 1          is sleeping
+2ms             philo 2          is eating
+2ms             philo 3          is sleeping
+3ms             philo 4          is sleeping
+203ms           philo 4          is thinking
+203ms           philo 4          has taken a fork
+549ms           philo 2          is sleeping
+571ms           philo 3          is thinking
+571ms           philo 3          has taken a fork
+571ms           philo 1          is thinking
+600ms           philo 4          has taken a fork
+600ms           philo 4          is eating
+601ms           philo 0          is sleeping
+601ms           philo 1          has taken a fork
+601ms           philo 1          has taken a fork
+601ms           philo 1          is eating
+754ms           philo 2          is thinking
+805ms           philo 0          is thinking
+805ms           philo 3          has taken a fork
+805ms           philo 4          is sleeping
+805ms           philo 1          is sleeping
+805ms           philo 3          died
+constant check done
+done joining philos
+
+blarger@c3r5s4 Philosophers % ./philosophers 5 800 200 200 5
+wait to grab his fork 0
+grab his fork 0
+1713359536548ms         philo 0          has taken a fork
+wait to grab next fork 0
+grab next fork 0
+1713359536548ms         philo 0          has taken a fork
+wait to grab his fork 2
+grab his fork 2
+1713359536548ms         philo 2          has taken a fork
+wait to grab next fork 2
+grab next fork 2
+1713359536548ms         philo 2          has taken a fork
+1ms             philo 0          is eating
+2ms             philo 1          is sleeping
+2ms             philo 2          is eating
+3ms             philo 3          is sleeping
+4ms             philo 4          is sleeping
+203ms           philo 1          is thinking
+wait to grab his fork 1
+541ms           philo 2          is sleeping
+544ms           philo 0          is sleeping
+grab his fork 1
+544ms           philo 1          has taken a fork
+wait to grab next fork 1
+grab next fork 1
+544ms           philo 1          has taken a fork
+544ms           philo 1          is eating
+546ms           philo 3          is thinking
+wait to grab his fork 3
+grab his fork 3
+546ms           philo 3          has taken a fork
+wait to grab next fork 3
+grab next fork 3
+546ms           philo 3          has taken a fork
+546ms           philo 3          is eating
+573ms           philo 4          is thinking
+wait to grab his fork 4
+746ms           philo 0          is thinking
+wait to grab his fork 0
+grab his fork 0
+grab his fork 4
+746ms           philo 4          has taken a fork
+wait to grab next fork 4
+746ms           philo 3          is sleeping
+746ms           philo 0          has taken a fork
+wait to grab next fork 0
+grab next fork 0
+746ms           philo 0          has taken a fork
+746ms           philo 2          is thinking
+wait to grab his fork 2
+grab his fork 2
+746ms           philo 2          has taken a fork
+wait to grab next fork 2
+grab next fork 2
+746ms           philo 0          is eating
+746ms           philo 1          is sleeping
+746ms           philo 2          has taken a fork
+746ms           philo 2          is eating
+951ms           philo 3          is thinking
+wait to grab his fork 3
+951ms           philo 1          is thinking
+951ms           philo 0          is sleeping
+grab his fork 3
+wait to grab his fork 1
+grab his fork 1
+wait to grab next fork 1
+grab next fork 1
+wait to grab next fork 3
+grab next fork 4
+951ms           philo 2          is sleeping
+grab next fork 3
+951ms           philo 4          died
+constant check done
+wait to grab his fork 0

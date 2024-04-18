@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:32:09 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 12:02:33 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 11:55:37 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,8 @@ t_philo			*create_philos_array(t_setting *data);
 int				init_simulation(t_setting *data);
 
 /* SIMULATION */
-void			print_state_change(const char *message, int philo_index,
-					t_philo *data, bool check_table);
-void			print_state_change_for_routine(const char *msg, int philo_i,
-					t_philo *philo, bool check_table);
 long long		current_time_stamp_in_ms();
-void			loop_simulation(t_setting *data);
-int				philo_grab_forks(t_philo *philo);
-void			philo_drop_forks(t_philo *philo);
+int			loop_simulation(t_setting *data);
 bool			philo_must_die(t_philo *philo);
 void			constant_check_table(t_setting *data, pthread_t *threads);
 
@@ -51,26 +45,31 @@ void			destroy_mutex(t_setting *data);
 
 
 /* UTILS */
-int				philos_ready_to_state(t_setting *data, char *condition);
 bool			check_if_a_philo_must_exit(t_philo *philo);
 void			lock_mutex(pthread_mutex_t *mutex);
 void			unlock_mutex(pthread_mutex_t *mutex);
 bool			update_if_philo_has_reached_max_meals(t_philo *philo);
-bool			all_philo_have_finished_max_meals(t_philo *philo);
+bool			all_philo_have_finished_max_meals(t_setting *data);
 bool			philo_can_exit(t_philo *philo);
+int				ft_usleep(useconds_t usec);
 
+/* FORKS */
+void			set_forks_to_philo(t_philo *philo);
+int				philo_grab_forks(t_philo *philo);
+void			philo_drop_forks(t_philo *philo);
 
-
-
+/* PRINT */
+void	print_death(int philo_i, t_philo *philo);
+void	print_state_change(const char *message, int philo_index, t_philo *data);
+					
 /* ERROR */
 int				print_error_and_return(char *str, int to_return);
-void			print_error_and_exit(char *error_message, int status);
+int				free_print_error_and_return(char *str, int to_return, t_setting *data);
+
 
 /* CLEANING */
 void			free_list(t_setting *data);
 void			free_list_until_index(t_setting *data, int index);
-void			free_data_print_error_and_exit(char *error_message, int status,
-					t_setting *data);
 
 /* DEV */
 void			print_array(t_setting *data);

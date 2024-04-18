@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:35:56 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/17 13:19:13 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/17 17:50:59 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ typedef struct s_philo
 	long long			last_meal;
 	int					meals_eaten;
 	int					index;// not used yet
+	bool				left_handed;
 	struct	s_setting	*data;
 	pthread_mutex_t		mutex_max_meal_reach;
 	pthread_mutex_t		mutex_fork;
+	bool				fork_is_available;
 	pthread_mutex_t		mutex_last_meal;
 }					t_philo;
 
@@ -57,6 +59,7 @@ typedef struct	s_setting
 	long long			time_before_starving;
 	int					time_to_eat;
 	int					time_to_sleep;
+	int					time_to_think;
 	int					max_meals;
 	bool				max_meals_set;
 	bool				number_of_philo_is_even;
@@ -64,6 +67,8 @@ typedef struct	s_setting
 	bool				must_exit;
 	pthread_mutex_t		mutex_death;
 	pthread_mutex_t		mutex_must_exit;
+	pthread_mutex_t		mutex_grab_forks;
+	pthread_mutex_t		can_write;
 	struct s_philo		*philos;
 }					t_setting;
 

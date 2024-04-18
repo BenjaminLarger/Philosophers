@@ -18,11 +18,10 @@ HEADERS		= -I $(HEADER_DIR) -I ${LIBFT}
 ## SOURCE ##
 SRCS		:= main.c \
 	input_set_state.c input_create_array.c\
-	simulation_init.c simulation_forks_handling.c simulation_loop.c simulation_mutex_handling.c\
-	similuation_death_handling.c simulation_check_table.c\
+	simulation_init.c simulation_forks_handling.c simulation_mutex_handling.c\
 	utils_print_message_in_real_time.c utils_simulation.c\
 	essentials_error.c \
-	utils_dev.c \
+	utils_dev.c simulation_new_routine.c simulation_new_check_tables.c\
 
 SRC_DIR		:= src/
 BUILD_DIR	:= build/

@@ -1,44 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation_check_table.c                           :+:      :+:    :+:   */
+/*   simulation_new_check_tables.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 10:27:23 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 10:00:51 by blarger          ###   ########.fr       */
+/*   Created: 2024/04/18 09:57:37 by blarger           #+#    #+#             */
+/*   Updated: 2024/04/18 11:55:57 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-bool	all_philo_have_finished_max_meals(t_philo *philo)
+bool	all_philo_have_finished_max_meals(t_setting *data)
 {
 	int		i;
 	bool	must_exit;
 
-	if (philo->data->max_meals_set == false)
-		return false;
+	if (data->max_meals_set == false)
+		return (false);
 	i = 0;
 	must_exit = true;
-	lock_mutex(&philo->data->mutex_must_exit);
-	while (i < philo->data->number_of_philo)
+	while (i < data->number_of_philo)
 	{
-		lock_mutex(&philo->mutex_max_meal_reach);
-		if (philo->max_meals_reach == false)
+		lock_mutex(&data->philos[i].mutex_max_meal_reach);
+		if (data->philos[i].max_meals_reach == false)
+		{
 			must_exit = false;
-		unlock_mutex(&philo->mutex_max_meal_reach);
+			unlock_mutex(&data->philos[i].mutex_max_meal_reach);
+			break ;
+		}
+		unlock_mutex(&data->philos[i].mutex_max_meal_reach);
 		i++;
 	}
 	if (must_exit == true)
 	{
+		lock_mutex(&data->can_write);
 		printf("\tthey have all eaten\n");
-		philo->data->must_exit = true;
-		unlock_mutex(&philo->data->mutex_must_exit);
-		lock_mutex(&philo->data->can_write);
 	}
-	else
-		unlock_mutex(&philo->data->mutex_must_exit);
 	return (must_exit);
 }
 
@@ -51,15 +50,23 @@ bool	philo_must_die(t_philo *philo)
 	unlock_mutex(&philo->mutex_last_meal);
 	if (time_since_last_meal >= philo->data->time_before_starving)
 	{
-		printf("time = %lld\n", time_since_last_meal);
-		lock_mutex(&philo->data->mutex_must_exit);
-		philo->data->must_exit = true;
-		print_state_change(DIES, philo->index, philo, false);
-		philo->is_dead = true;
-		unlock_mutex(&philo->data->mutex_must_exit);
 		lock_mutex(&philo->data->can_write);
+		print_death(philo->index, philo);
+		philo->is_dead = true;
 	}
 	return (philo->is_dead);
+}
+
+void	break_simulation(t_setting *data, pthread_t *threads)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->number_of_philo)
+	{
+		pthread_detach(threads[i]);
+		i++;
+	}
 }
 
 void	constant_check_table(t_setting *data, pthread_t *threads)
@@ -74,7 +81,7 @@ void	constant_check_table(t_setting *data, pthread_t *threads)
 		i = 0;
 		while (i < data->number_of_philo)
 		{
-			if (all_philo_have_finished_max_meals(&data->philos[i]) == true)
+			if (all_philo_have_finished_max_meals(data) == true)
 			{
 				to_break = true;
 				break ;
@@ -87,6 +94,8 @@ void	constant_check_table(t_setting *data, pthread_t *threads)
 			i++;
 		}
 	}
-	unlock_mutex(&data->can_write);
+	//usleep(8000);
+	break_simulation(data, threads);
+	//unlock_mutex(&data->can_write);
 	printf("constant check done\n");
 }
