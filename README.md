@@ -1,6 +1,9 @@
 # INSIGHTS
-We have to create mutex only for changing variable.
-Threads share common variable states and memories.
+## 🍽️ The Dining Philosophers Problem
+
+The Dining Philosophers Problem is a classic synchronization problem in computer science, illustrating issues that can arise in concurrent programming. In this scenario, a group of philosophers sit around a dining table with a bowl of spaghetti. Each philosopher alternates between thinking and eating. However, they must share a limited number of chopsticks between them, which can lead to deadlock if not properly managed.
+
+The challenge lies in designing a solution that prevents deadlocks, starvation, and ensures that each philosopher can eat without causing conflicts with their neighbors.
 
 ## Race conditions
 Race conditions occur in concurrent programs when the outcome of the program depends on the relative timing of operations performed by multiple threads or processes. Here's a breakdown:
