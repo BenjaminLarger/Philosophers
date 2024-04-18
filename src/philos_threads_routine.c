@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation_new_routine.c                           :+:      :+:    :+:   */
+/*   simulation_threads_routine.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:31:14 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 12:20:25 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 12:52:40 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ static void	eating_routine(t_philo *philo)
 	philo_drop_forks(philo);
 	if (philo->data->max_meals_set == true)
 	{
-		lock_mutex(&philo->mutex_max_meal_reach);
 		if (philo->meals_eaten == philo->data->max_meals)
+		{
+			lock_mutex(&philo->mutex_max_meal_reach);
 			philo->max_meals_reach = true;
-		unlock_mutex(&philo->mutex_max_meal_reach);
+			unlock_mutex(&philo->mutex_max_meal_reach);
+		}
 	}
 	philo->can_eat = false;
 }
@@ -53,9 +55,7 @@ static void	*philos_routine(void *philos)
 		if (philo->can_eat == false)
 		{
 			if (philo->can_sleep == true)
-			{
 				sleeping_routine(philo);
-			}
 			if (philo->can_think == true)
 				print_state_change(THINKS, philo->index, philo);
 			if (philo_grab_forks(philo) == SUCCESS)
@@ -75,12 +75,16 @@ int	loop_simulation(t_setting *data)
 	i = 0;
 	while (i < data->number_of_philo)
 	{
-		if (pthread_create(&threads[i], NULL, &philos_routine, &data->philos[i]))
+		if (pthread_create(&threads[i], NULL,
+				&philos_routine, &data->philos[i]))
+		{
 			return (free_print_error(THREAD_CREATE,
 					FAILURE, data));
+		}
 		i++;
 	}
-	constant_check_table(data, threads);
+	constant_check_table(data);
+	break_simulation(data, threads);
 	/* i = 0;
 	while (i < data->number_of_philo)
 	{
@@ -89,7 +93,6 @@ int	loop_simulation(t_setting *data)
 					FAILURE, data));
 		i++;
 	} */
-	printf("done joining philos\n");
 	free(threads);
 	return (SUCCESS);
 }

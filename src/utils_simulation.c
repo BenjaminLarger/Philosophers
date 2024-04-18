@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:23:04 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 12:18:37 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 12:55:01 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,17 @@ bool	update_if_philo_has_reached_max_meals(t_philo *philo)
 		to_return = true;
 	}
 	return (to_return);
+}
+
+void	break_simulation(t_setting *data, pthread_t *threads)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->number_of_philo)
+	{
+		pthread_detach(threads[i]);
+		i++;
+	}
 }
 

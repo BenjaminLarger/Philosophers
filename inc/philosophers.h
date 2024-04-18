@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:32:09 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 12:19:46 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 12:48:44 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ int				init_simulation(t_setting *data);
 
 /* SIMULATION */
 long long		current_time_stamp_in_ms();
-int			loop_simulation(t_setting *data);
+int				loop_simulation(t_setting *data);
 bool			philo_must_die(t_philo *philo);
-void			constant_check_table(t_setting *data, pthread_t *threads);
+void			constant_check_table(t_setting *data);
+void			break_simulation(t_setting *data, pthread_t *threads);
+
 
 /* MUTEX */
 void			initialize_mutex(t_setting *data);
@@ -69,8 +71,5 @@ int				free_print_error(char *str, int to_return, t_setting *data);
 void			free_list(t_setting *data);
 void			free_list_until_index(t_setting *data, int index);
 
-/* DEV */
-void			print_array(t_setting *data);
-void			print_list(t_setting *data);
 
 #endif

@@ -17,11 +17,11 @@ HEADERS		= -I $(HEADER_DIR) -I ${LIBFT}
 
 ## SOURCE ##
 SRCS		:= main.c \
-	input_set_state.c input_create_array.c\
-	simulation_init.c simulation_forks_handling.c simulation_mutex_handling.c\
+	input.c \
+	simulation_init.c forks_exchange.c\
 	utils_print_message_in_real_time.c utils_simulation.c\
-	essentials_error.c \
-	utils_dev.c simulation_new_routine.c simulation_new_check_tables.c\
+	philos_threads_routine.c main_threads_routine.c\
+	error.c \
 
 SRC_DIR		:= src/
 BUILD_DIR	:= build/
@@ -30,23 +30,23 @@ OBJS		:= $(patsubst $(SRC_DIR)%.c,$(BUILD_DIR)%.o,$(SRCS))
 
 ## TARGET ##
 all		: libft $(NAME)
-	@echo "${BMAG}Build successful!${NC}"
+	@echo "${BBLU}Build successful!${NC}"
 
 libft	:
-	@echo "${MAG}Building ${BMAG}libft...${NC}"
+	@echo "${YEL}Building ${YEL}libft...${NC}"
 	@${MAKE} -C ${LIBFT}
-	@echo "${BMAG}libft ${MAG}build complete.${NC}"
+	@echo "${YEL}libft ${YEL}build complete.${NC}"
 
 $(NAME)	: $(OBJS)
-	@echo "${BCYA}Creating executable: $(NAME)${NC}"
+	@echo "${BBLU}Creating executable: $(NAME)${NC}"
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
-	@echo "${BMAG}$(NAME) ${MAG}build complete.${NC}"
+	@echo "${YEL}$(NAME) ${YEL}build complete.${NC}"
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.c $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 	@mkdir -p $(BUILD_DIR)
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 	@echo "${BGRE}Compiling:${NC} $(notdir $<) \
-		${MAG}for ${BMAG}$(NAME)${NC} "
+		${YEL}for ${YEL}$(NAME)${NC} "
 
 clean	:
 	@echo "$(RED)Cleaning$(NC)"

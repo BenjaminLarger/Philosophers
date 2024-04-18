@@ -6,13 +6,22 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:20:31 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 11:41:46 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 12:38:36 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long long	current_time_stamp_in_ms()
+/**
+ * @brief Get the current timestamp in milliseconds.
+ *
+ * This function retrieves the current system time and returns it
+ * in the form of milliseconds.
+ * It's typically used for time-stamping events or measuring time intervals.
+ *
+ * @return The current timestamp in milliseconds.
+ */
+long long	current_time_stamp_in_ms(void)
 {
 	struct timeval tv;
 
@@ -54,6 +63,18 @@ void	print_death(int philo_i, t_philo *philo)
 	printf("%lldms\t\tphilo %d\t\t%s", time_to_print, philo_i, DIES);
 }
 
+/**
+ * @brief Pauses the execution of the current thread for a specified
+ * number of microseconds.
+ *
+ * This function suspends the execution of the current thread
+ * for a period that is 
+ * at least the specified number of microseconds.
+ * It's typically used to introduce 
+ * a delay in the execution of a program.
+ *
+ * @param usec The number of microseconds to sleep.
+ */
 int	ft_usleep(useconds_t usec)
 {
 	useconds_t	before;

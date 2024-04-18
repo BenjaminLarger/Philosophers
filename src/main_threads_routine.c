@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation_new_check_tables.c                      :+:      :+:    :+:   */
+/*   simulation_main_threads_routine.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:57:37 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 12:15:09 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 12:54:56 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ bool	all_philo_have_finished_max_meals(t_setting *data)
 		i++;
 	}
 	if (must_exit == true)
-	{
 		lock_mutex(&data->can_write);
-		printf("\tthey have all eaten\n");
-	}
 	return (must_exit);
 }
 
@@ -57,19 +54,7 @@ bool	philo_must_die(t_philo *philo)
 	return (philo->is_dead);
 }
 
-void	break_simulation(t_setting *data, pthread_t *threads)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->number_of_philo)
-	{
-		pthread_detach(threads[i]);
-		i++;
-	}
-}
-
-void	constant_check_table(t_setting *data, pthread_t *threads)
+void	constant_check_table(t_setting *data)
 {
 	int		i;
 	bool	to_break;
@@ -83,6 +68,7 @@ void	constant_check_table(t_setting *data, pthread_t *threads)
 			if (all_philo_have_finished_max_meals(data) == true)
 			{
 				to_break = true;
+				printf("\tthey all have eaten\n");
 				break ;
 			}
 			if (philo_must_die(&data->philos[i]) == true)
@@ -93,7 +79,6 @@ void	constant_check_table(t_setting *data, pthread_t *threads)
 			i++;
 		}
 	}
-	break_simulation(data, threads);
 	//unlock_mutex(&data->can_write);
 	printf("constant check done\n");
 }
