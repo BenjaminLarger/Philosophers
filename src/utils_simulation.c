@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:23:04 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 10:28:30 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 12:18:37 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,3 @@ bool	update_if_philo_has_reached_max_meals(t_philo *philo)
 	return (to_return);
 }
 
-bool	check_if_a_philo_must_exit(t_philo *philo)
-{
-	lock_mutex(&philo->data->mutex_must_exit);
-	if (philo->data->must_exit == true)//use mutex here
-	{
-		unlock_mutex(&philo->data->mutex_must_exit);
-		return (true);
-	}
-	unlock_mutex(&philo->data->mutex_must_exit);
-	return (false);
-}

@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:32:09 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 11:55:37 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 12:19:46 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void			destroy_mutex(t_setting *data);
 
 
 /* UTILS */
-bool			check_if_a_philo_must_exit(t_philo *philo);
 void			lock_mutex(pthread_mutex_t *mutex);
 void			unlock_mutex(pthread_mutex_t *mutex);
 bool			update_if_philo_has_reached_max_meals(t_philo *philo);
@@ -64,8 +63,7 @@ void	print_state_change(const char *message, int philo_index, t_philo *data);
 					
 /* ERROR */
 int				print_error_and_return(char *str, int to_return);
-int				free_print_error_and_return(char *str, int to_return, t_setting *data);
-
+int				free_print_error(char *str, int to_return, t_setting *data);
 
 /* CLEANING */
 void			free_list(t_setting *data);
@@ -74,6 +72,5 @@ void			free_list_until_index(t_setting *data, int index);
 /* DEV */
 void			print_array(t_setting *data);
 void			print_list(t_setting *data);
-
 
 #endif

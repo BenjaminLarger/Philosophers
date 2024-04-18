@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:31:14 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 11:48:44 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 12:20:25 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	eating_routine(t_philo *philo)
 	lock_mutex(&philo->mutex_last_meal);
 	philo->last_meal = current_time_stamp_in_ms();
 	unlock_mutex(&philo->mutex_last_meal);
-	//printf("time to sleep = %d\n", philo->data->time_to_sleep);
 	ft_usleep(philo->data->time_to_eat);
 	philo->meals_eaten++;
 	philo_drop_forks(philo);
@@ -72,12 +71,12 @@ int	loop_simulation(t_setting *data)
 
 	threads = malloc(sizeof(pthread_t) * data->number_of_philo);
 	if (!threads)
-		return (free_print_error_and_return(MALLOC, FAILURE, data));
+		return (free_print_error(MALLOC, FAILURE, data));
 	i = 0;
 	while (i < data->number_of_philo)
 	{
 		if (pthread_create(&threads[i], NULL, &philos_routine, &data->philos[i]))
-			return (free_print_error_and_return(THREAD_CREATE,
+			return (free_print_error(THREAD_CREATE,
 					FAILURE, data));
 		i++;
 	}
@@ -86,7 +85,7 @@ int	loop_simulation(t_setting *data)
 	while (i < data->number_of_philo)
 	{
 		if (pthread_join(threads[i], NULL) != 0)
-			return (free_print_error_and_return(THREAD_JOIN,
+			return (free_print_error(THREAD_JOIN,
 					FAILURE, data));
 		i++;
 	} */

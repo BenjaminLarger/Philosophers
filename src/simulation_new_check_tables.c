@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:57:37 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 11:55:57 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 12:15:09 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	constant_check_table(t_setting *data, pthread_t *threads)
 	int		i;
 	bool	to_break;
 
-	(void)threads;
 	to_break = false;
 	while (to_break == false)
 	{
@@ -94,7 +93,6 @@ void	constant_check_table(t_setting *data, pthread_t *threads)
 			i++;
 		}
 	}
-	//usleep(8000);
 	break_simulation(data, threads);
 	//unlock_mutex(&data->can_write);
 	printf("constant check done\n");
