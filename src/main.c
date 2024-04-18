@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:24:45 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 12:48:49 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 14:56:32 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	main(int argc, char **argv)
 	}
 	data->philos = create_philos_array(data);
 	if (init_simulation(data) == FAILURE)
+	{
+		free(data->philos);
 		return (free_print_error(INIT_FAILED, FAILURE, data));
+	}
 	free(data->philos);
 	free(data);
 }

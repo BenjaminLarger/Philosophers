@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation_threads_routine.c                       :+:      :+:    :+:   */
+/*   philos_threads_routine.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:31:14 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 12:52:40 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 14:49:10 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ int	loop_simulation(t_setting *data)
 		if (pthread_create(&threads[i], NULL,
 				&philos_routine, &data->philos[i]))
 		{
-			return (free_print_error(THREAD_CREATE,
-					FAILURE, data));
+			free(threads);
+			return (FAILURE);
 		}
 		i++;
 	}

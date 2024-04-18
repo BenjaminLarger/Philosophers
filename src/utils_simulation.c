@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:23:04 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 12:55:01 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 14:42:27 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ void	break_simulation(t_setting *data, pthread_t *threads)
 		i++;
 	}
 }
-

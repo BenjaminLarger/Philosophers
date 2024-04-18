@@ -11,7 +11,7 @@ LIBFT		:= ./lib/libft
 LIBS		= ${LIBFT}/libft.a -lreadline
 
 ## HEADERS ##
-HEADER_SRCS	:=	philosophers.h errors.h structures.h
+HEADER_SRCS	:=	philosophers.h message.h structures.h
 HEADER_DIR	:=	inc/
 HEADERS		= -I $(HEADER_DIR) -I ${LIBFT}
 
@@ -19,8 +19,8 @@ HEADERS		= -I $(HEADER_DIR) -I ${LIBFT}
 SRCS		:= main.c \
 	input.c \
 	simulation_init.c forks_exchange.c\
-	utils_print_message_in_real_time.c utils_simulation.c\
 	philos_threads_routine.c main_threads_routine.c\
+	print_message_in_real_time.c utils_simulation.c\
 	error.c \
 
 SRC_DIR		:= src/

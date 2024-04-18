@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation_main_threads_routine.c                  :+:      :+:    :+:   */
+/*   main_threads_routine.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:57:37 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 12:54:56 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 14:50:40 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	constant_check_table(t_setting *data)
 			if (all_philo_have_finished_max_meals(data) == true)
 			{
 				to_break = true;
-				printf("\tthey all have eaten\n");
 				break ;
 			}
 			if (philo_must_die(&data->philos[i]) == true)
@@ -80,5 +79,4 @@ void	constant_check_table(t_setting *data)
 		}
 	}
 	//unlock_mutex(&data->can_write);
-	printf("constant check done\n");
 }

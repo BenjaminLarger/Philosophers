@@ -6,13 +6,13 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:35:56 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 12:28:20 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 14:53:01 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
-#include "philosophers.h"
+# include "philosophers.h"
 
 /**
  * @brief A structure to represent a philosopher.
@@ -37,7 +37,7 @@ typedef struct s_philo
 	long long			last_meal;
 	int					meals_eaten;
 	int					index;// not used yet
-	struct	s_setting	*data;
+	struct s_setting	*data;
 	pthread_mutex_t		mutex_max_meal_reach;
 	pthread_mutex_t		mutex_fork;
 	pthread_mutex_t		mutex_last_meal;
@@ -51,7 +51,7 @@ typedef struct s_philo
  * a philosopher spends sleeping, and the maximum number of times a philosopher
  * can eat. It also includes a pointer to the first philosopher in the list.
  */
-typedef struct	s_setting
+typedef struct s_setting
 {
 	int					number_of_philo;
 	long long			time_before_starving;
