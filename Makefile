@@ -21,7 +21,6 @@ SRCS		:= main.c \
 	simulation_init.c forks_exchange.c\
 	philos_threads_routine.c main_threads_routine.c\
 	print_message_in_real_time.c utils_simulation.c\
-	error.c \
 
 SRC_DIR		:= src/
 BUILD_DIR	:= build/
