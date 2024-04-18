@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation_forks_handling.c                        :+:      :+:    :+:   */
+/*   forks_exchange.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:49:39 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 12:27:21 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 15:38:17 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,7 @@ void	set_forks_to_philo(t_philo *philo)
 int	philo_grab_forks(t_philo *philo)
 {
 	if (philo->data->number_of_philo == 1)
-	{
-		philo->can_think = true;
 		return (FAILURE);
-	}		
 	if (philo->data->max_meals_set == true)
 	{
 		lock_mutex(&philo->mutex_max_meal_reach);

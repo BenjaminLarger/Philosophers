@@ -50,7 +50,6 @@ $(BUILD_DIR)%.o: $(SRC_DIR)%.c $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 clean	:
 	@echo "$(RED)Cleaning$(NC)"
 	rm -f $(OBJS)
-	rm -rf $(BUILD_DIR)
 	${MAKE} -C ${LIBFT} fclean
 
 fclean	: clean

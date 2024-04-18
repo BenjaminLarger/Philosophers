@@ -6,7 +6,7 @@
 /*   By: blarger <blarger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:31:14 by blarger           #+#    #+#             */
-/*   Updated: 2024/04/18 14:49:10 by blarger          ###   ########.fr       */
+/*   Updated: 2024/04/18 15:33:40 by blarger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static void	*philos_routine(void *philos)
 				sleeping_routine(philo);
 			if (philo->can_think == true)
 				print_state_change(THINKS, philo->index, philo);
+			if (philo->data->number_of_philo == 1)
+				philo->can_think = false;
 			if (philo_grab_forks(philo) == SUCCESS)
 				philo->can_eat = true;			
 		}
